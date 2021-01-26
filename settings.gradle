@@ -1,2 +1,15 @@
+// 外壳
 include ':app'
+
+// 基础部分
+include ':basic-api', ':resource'
+
+// 功能部分
+include ':annotation', ':compiler', ':core', ':aspect', ':dev-support'
+
+// 业务部分
+include ':mine', ':social'
+// 插件部分
+include ':magician', ':versions-management'
+
 rootProject.name = "chestnut"
