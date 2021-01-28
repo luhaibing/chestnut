@@ -1,15 +1,52 @@
 // 外壳
-include ':app'
+include ":app"
 
 // 基础部分
-include ':basic-api', ':resource'
+include ":sdk", ":resource"
 
 // 功能部分
-include ':annotation', ':compiler', ':core', ':aspect', ':dev-support'
+include ":annotation", ":compiler", ":core", ":aspect", ":dev-support"
 
 // 业务部分
-include ':mine', ':social'
+include ":mine", ":social"
+
 // 插件部分
-include ':magician', ':versions-management'
+include ":magician"//, ":versions-management"
+includeBuild("versions-management")
 
 rootProject.name = "chestnut"
+
+buildscript {
+    // 因为本地二进制插件使用到外部资源
+    repositories {
+        google()
+        jcenter()
+    }
+    repositories {
+        // 导入本地二进制插件
+        maven { url uri("plugins") }
+    }
+    dependencies {
+        classpath("com.mercer:magician:1.0.0")
+    }
+}
+
+// 本地插件[修正子模块的项目路径]
+apply plugin: "fix.project.dir"
+
+fix {
+    folder("foundation", "feature", "transaction")
+}
+
+
+// apply {}
+// apply(new Action<ObjectConfigurationAction>() {})
+// gradle 是一种 DSL 语言 运行的本质应该是 先解析每个导入的部分 然后最后合并
+// apply from: "script/test1.gradle"
+
+//project(":mine").projectDir = file("transaction/mine")
+//project(":social").projectDir = file("transaction/social")
+//project(":annotation").projectDir = file("feature/annotation")
+//project(":core").projectDir = file("feature/core")
+//project(":dev-support").projectDir = file("feature/dev-support")
+//project(":aspect").projectDir = file("feature/aspect")

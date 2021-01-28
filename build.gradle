@@ -1,23 +1,51 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.21"
+    apply from: 'script/read-gradle-properties.gradle'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.2"
+        /*
+         - Instances of Dependency.
+         - String or CharSequence values, for example 'org.gradle:gradle-core:1.0'.
+         - Maps, for example [group: 'org.gradle', name: 'gradle-core', version: '1.0'].
+         - FileCollections, for example files('some.jar', 'someOther.jar').
+         - Projects, for example project(':some:project:path').
+         - ClassPathNotation, for example gradleApi().
+         */
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    }
+    repositories {
+        // 本地插件
+        maven { url uri("plugins") }
     }
 }
 
-allprojects {
+/*
+plugins {
+    id «plugin id» version «plugin version» [apply «false»]
+}
+*/
+
+plugins {
+    id "versions.management"
+}
+
+repositories {
+    google()
+    jcenter()
+}
+
+// 统一指定,就不需要每日子模块单独指定
+group = "com.mercer"
+
+subprojects {
     repositories {
         google()
         jcenter()
+        // 本地依赖
+        maven { url uri("dependencies") }
     }
 }
 

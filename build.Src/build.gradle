@@ -1,0 +1,37 @@
+// buildSrc 为默认的项目初始化的模块名
+// buildSrc 和 versions-management 具有相同的功能,且后者效率更好更快
+// 所以将 buildSrc 修改一下名字,防止默认匹配到 buildSrc 模块
+
+buildscript {
+    apply from: "../script/read-gradle-properties.gradle"
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+repositories {
+    google()
+    jcenter()
+}
+
+apply from: "../magician/build.gradle"
+
+sourceSets {
+    main {
+        java.srcDir "../magician/src/main/java"
+    }
+}
+
+kotlin {
+    sourceSets {
+        main {
+            kotlin.srcDir "../magician/src/main/java"
+            kotlin.srcDir "../magician/src/main/kotlin"
+        }
+    }
+}

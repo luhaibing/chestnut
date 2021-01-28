@@ -1,13 +1,39 @@
-plugins {
-    id 'java-library'
-    id 'kotlin'
+buildscript {
+    apply from: '../script/read-gradle-properties.gradle'
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+repositories {
+    jcenter()
+    google()
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'java-gradle-plugin'
+
+gradlePlugin {
+    plugins {
+        versionsManage {
+            // 在 app 模块需要通过 id 引用这个插件
+            id = "versions.management"
+            // 实现这个插件的类的路径
+            implementationClass = "com.mercer.manage.VersionsManagementPlugin"
+        }
+    }
 }
+
+//// 方便调试开发,直接将 magician 模块的代码路径引入本模块
+//apply from: "../magician/build.gradle"
+//
+//sourceSets {
+//    main {
+//        java.srcDirs += ["../magician/src/main/java"]
+//    }
+//}

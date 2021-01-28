@@ -1,0 +1,10 @@
+// 读取 根目录 下gradle.properties 获取 kotlin 和 gradle 版本信息 并设置成全局变量
+def properties = new Properties()
+def fileName = "gradle.properties"
+def propertiesFile = new File(project.rootDir, fileName)
+if (!propertiesFile.exists()) {
+    propertiesFile = new File(project.rootDir.parentFile.absolutePath, fileName)
+}
+properties.load(propertiesFile.newDataInputStream())
+ext.kotlin_version = properties.get("kotlin.version")
+ext.gradle_version = properties.get("gradle.version")
