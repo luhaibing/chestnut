@@ -16,6 +16,7 @@ includeBuild("versions-management")
 
 rootProject.name = "chestnut"
 
+
 buildscript {
     // 因为本地二进制插件使用到外部资源
     repositories {
@@ -24,7 +25,8 @@ buildscript {
     }
     repositories {
         // 导入本地二进制插件
-        maven { url uri("plugins") }
+        // maven { url uri("plugins") }
+        maven { url uri(new File(rootDir, "plugins")) }
     }
     dependencies {
         classpath("com.mercer:magician:1.0.0")
@@ -45,8 +47,4 @@ fix {
 // apply from: "script/test1.gradle"
 
 //project(":mine").projectDir = file("transaction/mine")
-//project(":social").projectDir = file("transaction/social")
 //project(":annotation").projectDir = file("feature/annotation")
-//project(":core").projectDir = file("feature/core")
-//project(":dev-support").projectDir = file("feature/dev-support")
-//project(":aspect").projectDir = file("feature/aspect")

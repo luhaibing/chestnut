@@ -3,6 +3,29 @@ plugins {
     id 'kotlin'
 }
 
+//apply plugin: 'maven-publish'
+//publishing {
+//    publications {
+//        // 这里的 hello 可以任意命名
+//        hello(MavenPublication) {
+//            // 插件的组ID，建议设置为插件的包名
+//            // com.mercer:magician:1.0.0
+//            groupId = 'com.mercer'
+//            //// 翻译过来是 工件ID，我的理解是插件的名字
+//            artifactId = project.name
+//            version = '1.0.0'
+//            // 组件类型，我们的插件其实就是Java组件
+//            from components.java
+//        }
+//    }
+//    // 如果未指定仓库地址 将会发布到默认的 MavenLocal 中
+//    // PublicationToMavenRepository 打包并发布到指定的地址
+//    repositories { maven { url uri(new File(rootDir, "repo3")) } }
+//}
+//publishDependency {
+//    anchor "publishHelloPublicationToMavenRepository"
+//}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7

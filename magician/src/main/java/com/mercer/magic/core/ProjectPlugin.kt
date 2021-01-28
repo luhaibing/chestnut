@@ -15,10 +15,9 @@ abstract class ProjectPlugin : Plugin<Project> {
         val startParameter = target.gradle.startParameter
         process(target, startParameter)
         target.afterEvaluate {
-            process(it, startParameter)
+            afterEvaluateProcess(it, startParameter)
         }
     }
-
 
     open fun process(project: Project, startParameter: StartParameter) {
 

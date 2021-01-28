@@ -18,7 +18,11 @@ buildscript {
     }
     repositories {
         // 本地插件
-        maven { url uri("plugins") }
+        // maven { url uri("plugins") }
+        maven { url uri(rootProject.file("plugins")) }
+    }
+    dependencies {
+        classpath "com.mercer:magician:1.0.0"
     }
 }
 
@@ -45,8 +49,14 @@ subprojects {
         google()
         jcenter()
         // 本地依赖
-        maven { url uri("dependencies") }
+        maven { url uri(rootProject.file("dependencies")) }
     }
+
+    if (project.name!="app"){
+        apply plugin: "publish.dependency"
+    }
+    apply plugin: "replace.dependency"
+
 }
 
 task clean(type: Delete) {
