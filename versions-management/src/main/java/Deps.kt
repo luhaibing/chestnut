@@ -9,11 +9,12 @@ object Deps {
 
 }
 
-object Android {
+object Google {
     const val core_ktx = "androidx.core:core-ktx:1.2.0"
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
     const val material = "com.google.android.material:material:1.1.0"
+    const val gson = "com.google.code.gson:gson:2.8.6"
 }
 
 object UnitTest {

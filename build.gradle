@@ -19,7 +19,7 @@ buildscript {
     repositories {
         // 本地插件
         // maven { url uri("plugins") }
-        maven { url uri(rootProject.file("plugins")) }
+        maven { url uri(new File(rootDir, "plugins")) }
     }
     dependencies {
         classpath "com.mercer:magician:1.0.0"
@@ -33,7 +33,7 @@ plugins {
 */
 
 plugins {
-    id "versions.management"
+    id "versions-management"
 }
 
 repositories {
@@ -41,22 +41,21 @@ repositories {
     jcenter()
 }
 
-// 统一指定,就不需要每日子模块单独指定
+// 统一指定,就不需要每个子模块单独指定
 group = "com.mercer"
 
 subprojects {
     repositories {
         google()
         jcenter()
-        // 本地依赖
-        maven { url uri(rootProject.file("dependencies")) }
+        // 本地依赖仓库
+        // maven { url uri("dependencies") }
+        maven { url uri(new File(rootDir, "dependencies")) }
     }
-
-    if (project.name!="app"){
+    if (Nameds.isNotPlugins(project)) {
         apply plugin: "publish.dependency"
     }
     apply plugin: "replace.dependency"
-
 }
 
 task clean(type: Delete) {

@@ -8,7 +8,9 @@ apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('../plugins'))
+            // repository(url: uri('../plugins'))
+            // buildscript.sourceFile 获取这个脚本文件的路径
+            repository(url: uri(new File(buildscript.sourceFile.parentFile.parentFile, "plugins")))
             pom.groupId = project.group
             pom.artifactId = project.name
             pom.version = project.version

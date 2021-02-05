@@ -1,9 +1,12 @@
-apply plugin: 'java'
-apply plugin: 'kotlin'
+// 因为不同语言有不同特性,groovy 相对于 java 和 kotlin 可操作性更强,但是我自己并不是很熟悉
+// 之所将部分插件类使用 groovy 代码包装一次是为了使用 groovy 可访问元数据(metaClass)的优点,扩展属性和方法
+apply plugin: "groovy"
+apply plugin: "java"
+apply plugin: "kotlin"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+compileGroovy {
+    dependsOn compileKotlin
+    classpath += files(compileKotlin.destinationDir)
 }
 
 dependencies {
@@ -11,17 +14,29 @@ dependencies {
     //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
-
     implementation "com.android.tools.build:gradle:$gradle_version"
-
     implementation localGroovy()
     implementation gradleApi()
-
     implementation "com.google.code.gson:gson:2.8.6"
+    // implementation Google.gson
 }
 
-if (file("../script/plugin-publish.gradle").exists()) {
+if (new File(rootDir, "script/plugin-publish.gradle").exists()) {
     group = rootProject.group
     version = "1.0.0"
-    apply from: file("../script/plugin-publish.gradle")
+    apply from: new File(rootDir, "script/plugin-publish.gradle")
+}
+
+/**
+ * 重新指定 java 源码路径
+ */
+def excludes = ["resources", "groovy", "deprecate",]
+def sourceFolder = new File(buildscript.sourceFile.parentFile, "src/main")
+sourceSets.main {
+    sourceFolder.listFiles().toList().stream()
+            .filter { !excludes.contains(it.name) }
+            .filter { it.isDirectory() }
+            .each {
+                java.srcDir(it.absolutePath)
+            }
 }

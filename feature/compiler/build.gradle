@@ -9,5 +9,7 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation fileTree(dir: "libs", includes: ["*.jar"])
+    implementation Jetbrains.kotlin_stdlib
+    implementation Jetbrains.kotlinx_coroutines_core
 }
