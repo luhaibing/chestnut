@@ -29,30 +29,21 @@ gradlePlugin {
     }
 }
 
-/*
+
 // 方便调试开发,直接将 magician 模块的代码路径引入本模块
 apply from: "../magician/build.gradle"
 
-sourceSets {
-    main {
-        java.srcDirs += ["../magician/src/main/java"]
-    }
-}
 gradlePlugin {
     plugins {
         dependencyPublish {
-            id = "publish.dependency"
-            implementationClass = "com.mercer.magic.plugin.dependency.DependencyPublishPlugin"
+            id = "publish-dependency"
+            // implementationClass = "com.mercer.magic.DependencyPublishWrapperPlugin"
+            implementationClass = "com.mercer.magic.DependencyPublishPlugin"
         }
 
         dependencyReplace {
-            id = "replace.dependency"
-            implementationClass = "com.mercer.magic.plugin.dependency.DependencyReplacePlugin"
+            id = "replace-dependency"
+            implementationClass = "com.mercer.magic.DependencyReplacePlugin"
         }
-
-        // publish.dependency.properties
-        //replace.dependency.properties
-
     }
 }
-*/

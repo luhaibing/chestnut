@@ -2,13 +2,13 @@
 include ":app"
 
 // 基础部分
-include ":sdk", ":resource"
+//include ":sdk", ":resource"
 
 // 功能部分
-include ":annotation", ":compiler", ":core", ":aspect", ":dev-support"
+//include ":annotate", ":compiler", ":core", ":aspect", ":dev-support"
 
 // 业务部分
-include ":mine", ":social"
+include ":mine"//, ":social"
 
 // 插件部分
 include ":magician"//, ":versions-management"
@@ -16,7 +16,7 @@ includeBuild("versions-management")
 
 rootProject.name = "chestnut"
 
-
+/*
 buildscript {
     // 因为本地二进制插件使用到外部资源
     repositories {
@@ -39,6 +39,7 @@ apply plugin: "fix.project.dir"
 fix {
     folder("foundation", "feature", "transaction")
 }
+*/
 
 
 // apply {}
@@ -46,5 +47,6 @@ fix {
 // gradle 是一种 DSL 语言 运行的本质应该是 先解析每个导入的部分 然后最后合并
 // apply from: "script/test1.gradle"
 
-//project(":mine").projectDir = file("transaction/mine")
-//project(":annotation").projectDir = file("feature/annotation")
+project(":mine").projectDir = file("transaction/mine")
+//project(":social").projectDir = file("transaction/social")
+//project(":annotate").projectDir = file("feature/annotate")

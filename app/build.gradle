@@ -1,16 +1,21 @@
+import com.mercer.magic.interceptor.DependencyInterceptor
+import com.mercer.magic.interceptor.Interceptor
+import com.mercer.magic.model.DependencyEntry
+import org.jetbrains.annotations.NotNull
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
 }
 
 android {
-    compileSdkVersion SDK.compile
-    buildToolsVersion SDK.buildTools
+    compileSdkVersion BuildConfig.compile
+    buildToolsVersion BuildConfig.buildTools
 
     defaultConfig {
         applicationId "com.mercer.chestnut"
-        minSdkVersion SDK.min
-        targetSdkVersion SDK.target
+        minSdkVersion BuildConfig.min
+        targetSdkVersion BuildConfig.target
         versionCode 1
         versionName "1.0"
 
@@ -32,6 +37,11 @@ android {
     }
 }
 
+
+//repositories {
+//    maven { url uri(rootProject.uri("dependencies")) }
+//}
+
 dependencies {
 
     implementation fileTree(dir: "libs", includes: ["*.jar"])
@@ -48,6 +58,7 @@ dependencies {
     androidTestImplementation InstrumentationTest.junit
     androidTestImplementation InstrumentationTest.espresso_core
 
+    /*
     implementation Nameds.sdk.get(project)
     implementation Nameds.resource.get(project)
 
@@ -56,8 +67,24 @@ dependencies {
     implementation Nameds.compiler.get(project)
     implementation Nameds.aspect.get(project)
     implementation Nameds.dev.get(project)
+    implementation Nameds.social.get(project)
+    */
 
     implementation Nameds.mine.get(project)
-    implementation Nameds.social.get(project)
+    // implementation "commons-codec:commons-codec:1.10"
+    // implementation "androidx.paging:paging-runtime-ktx:2.1.2"
 
+    // implementation "com.mercer:mine:1.0.0"
+    // implementation "com.mercer:social:1.0.0"
+
+}
+
+replaceDependency {
+    interceptor(new DependencyInterceptor() {
+        @Override
+        Dependency intercept(@NotNull Interceptor.Chain<DependencyEntry, Dependency> chain) {
+            println "----------- 自定义拦截器 -----------"
+            return chain.proceed(chain.input())
+        }
+    })
 }

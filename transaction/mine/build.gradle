@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion SDK.compile
-    buildToolsVersion SDK.buildTools
+    compileSdkVersion BuildConfig.compile
+    buildToolsVersion BuildConfig.buildTools
 
     defaultConfig {
-        minSdkVersion SDK.min
-        targetSdkVersion SDK.target
+        minSdkVersion BuildConfig.min
+        targetSdkVersion BuildConfig.target
         versionCode 1
         versionName "1.0"
 
@@ -29,6 +29,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    sourceSets.main {
+        java.srcDir("src/export/java")
     }
 }
 

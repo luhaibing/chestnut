@@ -30,7 +30,7 @@ if (new File(rootDir, "script/plugin-publish.gradle").exists()) {
 /**
  * 重新指定 java 源码路径
  */
-def excludes = ["resources", "groovy", "deprecate",]
+def excludes = ["resources", "groovy", "deprecate"]
 def sourceFolder = new File(buildscript.sourceFile.parentFile, "src/main")
 sourceSets.main {
     sourceFolder.listFiles().toList().stream()
@@ -39,4 +39,8 @@ sourceSets.main {
             .each {
                 java.srcDir(it.absolutePath)
             }
+}
+
+sourceSets.main {
+    groovy.srcDir(new File(buildscript.sourceFile.parentFile, "src/main/groovy"))
 }

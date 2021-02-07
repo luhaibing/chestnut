@@ -45,13 +45,13 @@ class LoopChain<In, Out> constructor(
 
         fun <In, Out> start(
             input: In, interceptors: List<Interceptor<In, Out>>
-        ): Out? {
+        ): Out {
             return create(input, interceptors).proceed(input)
         }
 
         fun <In, Out> start(
             input: In, worker: Interceptor<In, Out>, interceptors: List<Interceptor<In, Out>>
-        ): Out? {
+        ): Out {
             return create(input, worker, interceptors).proceed(input)
         }
 
@@ -61,7 +61,7 @@ class LoopChain<In, Out> constructor(
 
     override fun input(): In = input
 
-    override fun proceed(input: In): Out? {
+    override fun proceed(input: In): Out {
         val interceptor: Interceptor<In, Out> = interceptors[index]
         val next: Interceptor.Chain<In, Out> = next(this)
         return interceptor.intercept(next)

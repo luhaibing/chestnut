@@ -2,11 +2,8 @@ package com.mercer.magic
 
 import com.mercer.magic.extension.DefaultFixProjectDir
 import com.mercer.magic.extension.FixProjectDir
-import com.mercer.magic.service.Logger
 import org.gradle.StartParameter
-import org.gradle.api.Plugin
 import org.gradle.api.initialization.Settings
-import org.gradle.api.plugins.ExtensionContainer
 import java.io.File
 
 /**
@@ -15,18 +12,16 @@ import java.io.File
  * @canonicalName   : com.mercer.magic.FixProjectDirPlugin
  * @description     : 修正子模块源路径
  */
-class FixProjectDirPlugin : BasicPlugin<Settings, FixProjectDir>() {
+class FixProjectDirPlugin : FoundationPlugin<Settings, FixProjectDir>() {
 
-    override fun declareExtension(extensions: ExtensionContainer) {
-        extensions.create(
-            FixProjectDir::class.java,
-            FixProjectDir.KEY,
-            DefaultFixProjectDir::class.java
+    override fun declareExtension(target: Settings) {
+        target.extensions.create(
+            FixProjectDir::class.java, FixProjectDir.KEY, DefaultFixProjectDir::class.java
         )
     }
 
-    override fun receiveExtension(extensions: ExtensionContainer): FixProjectDir {
-        return extensions.findByName(FixProjectDir.KEY) as? FixProjectDir
+    override fun receiveExtension(target: Settings): FixProjectDir {
+        return target.extensions.findByName(FixProjectDir.KEY) as? FixProjectDir
             ?: throw NullPointerException("can not receive extensions findByName(${FixProjectDir.KEY}).")
     }
 

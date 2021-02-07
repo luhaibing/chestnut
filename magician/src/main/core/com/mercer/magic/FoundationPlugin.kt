@@ -5,29 +5,28 @@ import org.gradle.StartParameter
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.initialization.Settings
-import org.gradle.api.plugins.ExtensionContainer
 import javax.naming.OperationNotSupportedException
 
 /**
  * @author          : mercer
  * @date            : 2021-02-05  23:03
- * @canonicalName   : com.mercer.magic.BasicPlugin
+ * @canonicalName   : com.mercer.magic.FoundationPlugin
  * @description     : 插件基本操作
  */
-abstract class BasicPlugin<T, E> : Plugin<T> {
+abstract class FoundationPlugin<T, E> : Plugin<T> {
 
     open val logger: Logger = DefaultLogger()
 
     override fun apply(target: T) {
         when (target) {
             is Project -> {
+                declareExtension(target)
                 if (!proceed(target, target.gradle.startParameter)) {
                     return
                 }
-                declareExtension(target.extensions)
                 handle(target, target.gradle.startParameter)
                 target.afterEvaluate {
-                    val extension: E? = receiveExtension(target.extensions)
+                    val extension: E? = receiveExtension(target)
                     if (!afterEvaluateProceed(target, extension, target.gradle.startParameter)) {
                         return@afterEvaluate
                     }
@@ -35,13 +34,13 @@ abstract class BasicPlugin<T, E> : Plugin<T> {
                 }
             }
             is Settings -> {
+                declareExtension(target)
                 if (!proceed(target, target.gradle.startParameter)) {
                     return
                 }
-                declareExtension(target.extensions)
                 handle(target, target.gradle.startParameter)
                 target.gradle.settingsEvaluated {
-                    val extension: E? = receiveExtension(target.extensions)
+                    val extension: E? = receiveExtension(target)
                     if (!afterEvaluateProceed(target, extension, target.gradle.startParameter)) {
                         return@settingsEvaluated
                     }
@@ -57,13 +56,13 @@ abstract class BasicPlugin<T, E> : Plugin<T> {
     /**
      * 声明扩展
      */
-    open fun declareExtension(extensions: ExtensionContainer) {
+    open fun declareExtension(target: T) {
     }
 
     /**
      * 接收扩展
      */
-    open fun receiveExtension(extensions: ExtensionContainer): E? {
+    open fun receiveExtension(target: T): E? {
         return null
     }
 
@@ -90,9 +89,7 @@ abstract class BasicPlugin<T, E> : Plugin<T> {
     /**
      * 配置期完成后处理
      */
-    open fun afterEvaluateHandle(
-        target: T, extension: E?, startParameter: StartParameter
-    ) {
+    open fun afterEvaluateHandle(target: T, extension: E?, startParameter: StartParameter) {
     }
 
 }

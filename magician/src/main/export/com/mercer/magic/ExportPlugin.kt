@@ -1,7 +1,6 @@
 package com.mercer.magic
 
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionContainer
 
 /**
  * @author          : mercer
@@ -9,6 +8,6 @@ import org.gradle.api.plugins.ExtensionContainer
  * @canonicalName   : com.mercer.magic.ModuleExportPlugin
  * @description     : 业务模块分离出可用于组件化通信的依赖
  */
-class ExportPlugin : BasicPlugin<Project, Unit>() {
+class ExportPlugin : FoundationPlugin<Project, Unit>() {
 
 }

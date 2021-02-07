@@ -6,26 +6,31 @@ import org.gradle.api.Project
  * @canonicalName   : Named
  * @description     :
  */
-@Suppress("EnumEntryName", "unused")
-enum class Nameds(private val value: String) {
+@Suppress(
+    "EnumEntryName", "unused", "SpellCheckingInspection", "MemberVisibilityCanBePrivate",
+    "SameParameterValue"
+)
+enum class Nameds(val value: String, val group: Int) {
+
+    app(":app", Nameds.CONTAINER),
 
     // 基础
-    sdk(":sdk"),
-    resource(":resource"),
+    sdk(":sdk", Nameds.FOUNDATION),
+    resource(":resource", Nameds.FOUNDATION),
 
     // 功能呢
-    annotate(":annotation"),
-    core(":core"),
-    compiler(":compiler"),
-    aspect(":aspect"),
-    dev(":dev-support"),
+    annotate(":annotate", Nameds.FEATURE),
+    core(":core", Nameds.FEATURE),
+    compiler(":compiler", Nameds.FEATURE),
+    aspect(":aspect", Nameds.FEATURE),
+    dev(":dev-support", Nameds.FEATURE),
 
     // 业务
-    mine(":mine"),
-    social(":social"),
+    mine(":mine", Nameds.TRANSACTION),
+    social(":social", Nameds.TRANSACTION),
 
     // 插件
-    magician(":magician"),
+    magician(":magician", Nameds.PLUGIN),
 
     ;
 
@@ -34,16 +39,66 @@ enum class Nameds(private val value: String) {
     }
 
     companion object {
-        @JvmStatic
-        fun isNotPlugins(project: Project): Boolean {
-            val value = magician.value
-            val prefix = ":"
-            return if (value.startsWith(prefix)) {
-                project.name != value.substring(prefix.length)
+
+        /**
+         * 容器
+         */
+        const val CONTAINER = 1
+
+        /**
+         * 基础
+         */
+        const val FOUNDATION = CONTAINER shl 1
+
+        /**
+         * 功能
+         */
+        const val FEATURE = FOUNDATION shl 1
+
+        /**
+         * 业务
+         */
+        const val TRANSACTION = FEATURE shl 1
+
+        /**
+         * 插件
+         */
+        const val PLUGIN = TRANSACTION shl 1
+
+        private const val PREFIX = ":"
+
+        private fun name(named: Nameds): String {
+            return if (named.value.startsWith(PREFIX)) {
+                named.value.substring(PREFIX.length)
             } else {
-                project.name != value
+                named.value
             }
         }
+
+        @JvmStatic
+        fun isNotPlugins(target: Project): Boolean {
+            return target.name != name(magician)
+        }
+
+        @JvmStatic
+        fun isContainer(target: Project): Boolean {
+            return distinguish(target, CONTAINER)
+        }
+
+        @JvmStatic
+        fun isPlugin(target: Project): Boolean {
+            return distinguish(target, PLUGIN)
+        }
+
+        private fun distinguish(target: Project, group: Int): Boolean {
+            return try {
+                valueOf(target.name).group == group
+            } catch (e: Exception) {
+                false
+            }
+        }
+
     }
+
 
 }

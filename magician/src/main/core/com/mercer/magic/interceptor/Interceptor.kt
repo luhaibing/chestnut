@@ -10,7 +10,7 @@ interface Interceptor<In, Out> {
     /**
      * 拦截处理
      */
-    fun intercept(chain: Chain<In, Out>): Out?
+    fun intercept(chain: Chain<In, Out>): Out
 
     /**
      * 拦截器责任链
@@ -25,7 +25,7 @@ interface Interceptor<In, Out> {
         /**
          * 处理
          */
-        fun proceed(input: In): Out?
+        fun proceed(input: In): Out
 
     }
 

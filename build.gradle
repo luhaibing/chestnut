@@ -16,6 +16,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+    /*
     repositories {
         // 本地插件
         // maven { url uri("plugins") }
@@ -24,6 +25,7 @@ buildscript {
     dependencies {
         classpath "com.mercer:magician:1.0.0"
     }
+    */
 }
 
 /*
@@ -50,12 +52,12 @@ subprojects {
         jcenter()
         // 本地依赖仓库
         // maven { url uri("dependencies") }
-        maven { url uri(new File(rootDir, "dependencies")) }
+        // maven { url uri(new File(rootDir, "dependencies")) }
     }
     if (Nameds.isNotPlugins(project)) {
-        apply plugin: "publish.dependency"
+        apply plugin: "publish-dependency"
+        apply plugin: "replace-dependency"
     }
-    apply plugin: "replace.dependency"
 }
 
 task clean(type: Delete) {
