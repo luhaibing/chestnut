@@ -14,8 +14,8 @@ import java.io.File
  * @canonicalName   : com.mercer.magic.extension.DefaultDependencyPublish
  * @description     :
  */
-open class DefaultDependencyPublish(private val target: Project) : DependencyPublish,
-    OnAcquireListener<DependencyPublish> {
+open class DefaultDependencyPublish(private val target: Project) :
+    DependencyPublish, OnAcquireListener<DependencyPublish> {
 
     override var output: File = toFile(DependencyExt.DEFAULT_FOLDER)
 

@@ -15,10 +15,12 @@ import org.gradle.api.internal.tasks.DefaultSourceSetContainer
 object JavaPublishAction : CommonOnPublishAction(Category.Java) {
 
     override fun source(target: Project): SourceSet {
+
         val container = (target.extensions.findByName(Category.Java.container)
                 as DefaultSourceSetContainer).findByName(DependencyExt.SOURCE_CHANNEL)
             ?: throw NullPointerException("can not found ${Category.Java.container}.${DependencyExt.SOURCE_CHANNEL}")
-        return SourceSet(target.projectDir, container, target.buildFile)
+        return SourceSet.java(target, container)
+
     }
 
 }

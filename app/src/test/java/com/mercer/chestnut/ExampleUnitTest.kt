@@ -16,13 +16,6 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
-        val file = File("src/main/java/com/mercer/chestnut/MainActivity.kt")
-        println(file.exists())
-        println(file.absolutePath)
-        println(DigestUtils.md5Hex(file.readBytes()).toUpperCase())
-        val content = file.readText().trim()
-        println(DigestUtils.md5Hex(content).toUpperCase())
-
     }
 
 }

@@ -1,9 +1,14 @@
-@file:Suppress("SimpleDateFormat", "WeekBasedYear", "unused")
+@file:Suppress("SimpleDateFormat", "WeekBasedYear", "unused", "DEPRECATION")
 
 package com.mercer.magic.util
 
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.api.AndroidSourceSet
 import com.google.gson.Gson
 import com.mercer.magic.model.RepositoryModel
+import org.gradle.api.Project
+import org.gradle.api.internal.tasks.DefaultSourceSetContainer
+import org.gradle.api.tasks.SourceSet
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -41,10 +46,19 @@ fun unfoldTraverseFolders(vararg values: File): List<File> {
 }
 
 fun unfoldTraverseFolders(values: List<File>): List<File> {
-    return values.toList()
-        .filter { it.exists() }
-        .map { unfoldTraverseFolder(it) }
-        .flatMap { it.map { f -> f } }
+    return values
+        .toList()
+        .filter {
+            it.exists()
+        }
+        .map {
+            unfoldTraverseFolder(it)
+        }
+        .flatMap { it ->
+            it.map { f ->
+                f
+            }
+        }
 }
 
 /**
@@ -54,6 +68,11 @@ fun unfoldTraverseFolder(src: File): List<File> {
     val values = arrayListOf<File>()
 
     if (!src.exists()) {
+        return values
+    }
+
+    if (src.isFile) {
+        values.add(src)
         return values
     }
 
@@ -106,4 +125,18 @@ fun writeContentToFile(file: File, content: ByteArray) {
     outputStream.write(content)
     outputStream.flush()
     outputStream.close()
+}
+
+fun sourceSet(project: Project): SourceSet {
+    val sourceSets = project.extensions.findByName("sourceSets") as? DefaultSourceSetContainer
+        ?: throw NullPointerException("can not get extensions.sourceSets.")
+    return sourceSets.findByName("main")
+        ?: throw NullPointerException("can not get sourceSets by findByName(main).")
+}
+
+fun androidSourceSet(project: Project): AndroidSourceSet {
+    val android = project.extensions.findByName("android") as? BaseExtension
+        ?: throw NullPointerException("can not get extensions.android.")
+    return android.sourceSets.findByName("main")
+        ?: throw NullPointerException("can not get android.sourceSets by findByName(main).")
 }

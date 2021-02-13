@@ -1,8 +1,8 @@
-package com.mercer.magic.interceptor
+package com.mercer.magic.interceptor.response
 
 /**
  * @author      ：mercer
- * @date        ：2021-01-28  17:53
+ * @date        ：2021-02-13  17:01
  * @description ：拦截器
  */
 interface Interceptor<In, Out> {
@@ -12,18 +12,15 @@ interface Interceptor<In, Out> {
      */
     fun intercept(chain: Chain<In, Out>): Out
 
-    /**
-     * 拦截器责任链
-     */
     interface Chain<In, Out> {
 
         /**
-         * 输入
+         * 参数
          */
         fun input(): In
 
         /**
-         * 处理
+         * 继续
          */
         fun proceed(input: In): Out
 

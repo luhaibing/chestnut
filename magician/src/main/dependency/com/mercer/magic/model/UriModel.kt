@@ -1,8 +1,10 @@
 package com.mercer.magic.model
 
 import org.gradle.api.Project
+import org.gradle.api.internal.file.BaseDirFileResolver
 import java.lang.Exception
 import java.net.URI
+import javax.naming.OperationNotSupportedException
 
 /**
  * @author          : mercer
@@ -17,6 +19,20 @@ open class UriModel(
 ) {
 
     open fun trim(target: Project) {}
+
+    fun toURI(rootProject: Project): URI {
+        return when (scheme) {
+            FILE -> {
+                BaseDirFileResolver(rootProject.rootDir).resolveUri(path)
+            }
+            HTTP, HTTPS -> {
+                BaseDirFileResolver(rootProject.rootDir).resolveUri("${scheme}://${host}${path}")
+            }
+            else -> {
+                throw OperationNotSupportedException()
+            }
+        }
+    }
 
     class FileUri(path: String) : UriModel(FILE, null, path) {
         override fun trim(target: Project) {
@@ -38,18 +54,29 @@ open class UriModel(
                     FileUri(uri.path)
                 }
                 HTTP -> {
-                    // RemoteUri(uri.scheme,uri.host,uri.path)
-                    RemoteUri(HTTP, uri.host, uri.path)
+                    RemoteUri(HTTP, uri.host, modifyDefaultPath(uri.path))
                 }
                 HTTPS -> {
-                    // RemoteUri(uri.scheme,uri.host,uri.path)
-                    RemoteUri(HTTPS, uri.host, uri.path)
+                    RemoteUri(HTTPS, uri.host, modifyDefaultPath(uri.path))
                 }
                 else -> {
                     throw Exception("can not handle this situation.")
                 }
             }
         }
+
+        /**
+         * 修正
+         */
+        private fun modifyDefaultPath(path: String): String {
+            return if (path.trim().isEmpty()) {
+                "/"
+            } else {
+                path
+            }
+        }
+
+
     }
 
 }

@@ -14,6 +14,9 @@ public class ExportPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         project.getPluginManager().apply(com.mercer.magic.ExportPlugin.class);
+        project.dependencies.class.metaClass.sdk { String value ->
+            println value
+        }
     }
 
 }

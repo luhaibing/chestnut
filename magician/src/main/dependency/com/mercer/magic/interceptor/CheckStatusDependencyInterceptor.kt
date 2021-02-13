@@ -3,6 +3,7 @@ package com.mercer.magic.interceptor
 import com.mercer.magic.trigger.OnDependencyStatusTrigger
 import com.mercer.magic.model.DependencyEntry
 import org.gradle.api.artifacts.Dependency
+import com.mercer.magic.interceptor.response.Interceptor
 
 /**
  * @author          : mercer

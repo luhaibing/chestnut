@@ -29,7 +29,9 @@ abstract class CommonOnPublishAction(override val category: Category) : OnPublis
         val folder = target.projectDir.absolutePath
         return sourceSet
             .collects(folder)
-            .map { fileToSourceSummary(folder, it) }
+            .map {
+                fileToSourceSummary(folder, it)
+            }
             .toList()
     }
 

@@ -1,4 +1,3 @@
-
 package com.mercer.magic.constant
 
 /**
@@ -25,6 +24,10 @@ object PluginId {
         const val KOTLIN_ANDROID = "kotlin-android"
     }
 
+    object Gradle {
+        const val GROOVY = "groovy"
+    }
+
     val ANDROIDS: List<String> by lazy {
         val values = arrayListOf<String>()
         values.add(Android.APPLICATION)
@@ -44,6 +47,10 @@ object PluginId {
         values.add(Kotlin.KOTLIN)
         values.add(Kotlin.KOTLIN_ANDROID)
         values
+    }
+
+    object Custom {
+        const val MICRO = "micro"
     }
 
 }

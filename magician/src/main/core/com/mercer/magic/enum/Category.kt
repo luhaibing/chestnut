@@ -13,6 +13,9 @@ enum class Category(
 
     Java("jar", "sourceSets"),
 
-    Android("aar", "android")
+    Android("aar", "android"),
+
+    // 无法识别
+    UNKNOWN("","");
 
 }

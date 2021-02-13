@@ -56,8 +56,6 @@ class DependencyPublishPlugin : FoundationPlugin<Project, DependencyPublish>(),
     ) {
         super.afterEvaluateHandle(target, extension, startParameter)
         extension ?: throw NullPointerException("extension can not be null.")
-        // TODO: 2/7/21
-        println("notation : ${extension.anchor.notation(target)}")
         extension.anchor.acquireAnchor(target).doLast {
             action = CommonOnPublishAction.factory(target)
             process(target, extension)

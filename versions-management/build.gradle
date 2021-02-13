@@ -35,6 +35,7 @@ apply from: "../magician/build.gradle"
 
 gradlePlugin {
     plugins {
+
         dependencyPublish {
             id = "publish-dependency"
             // implementationClass = "com.mercer.magic.DependencyPublishWrapperPlugin"
@@ -45,5 +46,16 @@ gradlePlugin {
             id = "replace-dependency"
             implementationClass = "com.mercer.magic.DependencyReplacePlugin"
         }
+
+        micro {
+            id = "micro"
+            implementationClass = "com.mercer.magic.MicroPlugin"
+        }
+
+        export {
+            id = "export"
+            implementationClass = "com.mercer.magic.ExportPlugin"
+        }
+
     }
 }

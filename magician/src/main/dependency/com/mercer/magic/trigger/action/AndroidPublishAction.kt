@@ -18,7 +18,9 @@ object AndroidPublishAction : CommonOnPublishAction(Category.Android) {
         val container = (target.extensions.findByName(Category.Android.container)
                 as LibraryExtension).sourceSets.findByName(DependencyExt.SOURCE_CHANNEL)
             ?: throw NullPointerException("can not found ${Category.Android.container}.${DependencyExt.SOURCE_CHANNEL}")
-        return SourceSet(target.projectDir, container, target.buildFile)
+
+        return SourceSet.android(target, container)
+
     }
 
 }

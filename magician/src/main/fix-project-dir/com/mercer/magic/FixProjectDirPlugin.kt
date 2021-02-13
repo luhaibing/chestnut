@@ -21,8 +21,10 @@ class FixProjectDirPlugin : FoundationPlugin<Settings, FixProjectDir>() {
     }
 
     override fun receiveExtension(target: Settings): FixProjectDir {
-        return target.extensions.findByName(FixProjectDir.KEY) as? FixProjectDir
-            ?: throw NullPointerException("can not receive extensions findByName(${FixProjectDir.KEY}).")
+        val extension = (target.extensions.findByName(FixProjectDir.KEY) as? DefaultFixProjectDir
+            ?: throw NullPointerException("can not receive extensions findByName(${FixProjectDir.KEY})."))
+        extension.prepare()
+        return extension
     }
 
     override fun afterEvaluateHandle(

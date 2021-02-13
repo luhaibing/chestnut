@@ -2,7 +2,7 @@ package com.mercer.magic.trigger.action
 
 import com.mercer.magic.trigger.OnReplaceAction
 import com.mercer.magic.extension.DependencyReplace
-import com.mercer.magic.interceptor.LoopChain
+import com.mercer.magic.interceptor.response.LoopChain
 import com.mercer.magic.model.DefaultDependencyEntry
 import com.mercer.magic.model.DependencyEntry
 import org.gradle.api.Project

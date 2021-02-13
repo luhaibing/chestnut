@@ -19,7 +19,7 @@ class DefaultLogger : Logger {
     }
 
     override fun info(any: Any) {
-        TODO("Not yet implemented")
+        println(any.toString())
     }
 
     override fun warn(any: Any) {

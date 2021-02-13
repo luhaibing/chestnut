@@ -1,11 +1,7 @@
-import com.mercer.magic.interceptor.DependencyInterceptor
-import com.mercer.magic.interceptor.Interceptor
-import com.mercer.magic.model.DependencyEntry
-import org.jetbrains.annotations.NotNull
-
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    id "micro"
 }
 
 android {
@@ -71,20 +67,29 @@ dependencies {
     */
 
     implementation Nameds.mine.get(project)
-    // implementation "commons-codec:commons-codec:1.10"
+    implementation "commons-codec:commons-codec:1.10"
     // implementation "androidx.paging:paging-runtime-ktx:2.1.2"
 
     // implementation "com.mercer:mine:1.0.0"
     // implementation "com.mercer:social:1.0.0"
+    implementation "com.google.code.gson:gson:2.8.6"
 
 }
 
 replaceDependency {
-    interceptor(new DependencyInterceptor() {
-        @Override
-        Dependency intercept(@NotNull Interceptor.Chain<DependencyEntry, Dependency> chain) {
-            println "----------- 自定义拦截器 -----------"
-            return chain.proceed(chain.input())
-        }
-    })
+//    interceptor(new DependencyInterceptor() {
+//        @Override
+//        Dependency intercept(@NotNull Interceptor.Chain<DependencyEntry, Dependency> chain) {
+//            println "----------- 自定义拦截器 -----------"
+//            return chain.proceed(chain.input())
+//        }
+//    })
+    interceptor {
+        println "----------- 自定义拦截器 -----------"
+        it.proceed(it.input())
+    }
+}
+
+micro {
+    include "home", ":list"
 }

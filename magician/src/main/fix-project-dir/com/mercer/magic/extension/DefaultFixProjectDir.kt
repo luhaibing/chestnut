@@ -18,4 +18,7 @@ open class DefaultFixProjectDir constructor(
         folders.addAll(values)
     }
 
+    fun prepare() {
+    }
+
 }

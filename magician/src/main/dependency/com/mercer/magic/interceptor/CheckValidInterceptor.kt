@@ -7,6 +7,7 @@ import com.mercer.magic.model.DependencyEntry
 import com.mercer.magic.model.SourceSummary
 import org.gradle.api.artifacts.Dependency
 import java.io.File
+import com.mercer.magic.interceptor.response.Interceptor
 
 /**
  * @author          : mercer
