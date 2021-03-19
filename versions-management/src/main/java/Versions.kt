@@ -1,16 +1,16 @@
 object Versions {
 
-    const val kotlin = "1.4.21"
+    /* libraries */
+
+    /* kotlin */
+    const val kotlin = "1.4.31"
     const val kotlinx_coroutines = "1.4.2"
 
-    const val compileSdk = 30
-    const val buildTools = "30.0.3"
-    const val minSdk = 16
-    const val targetSdk = 30
+    /* unitTest */
+    const val unit_junit = "4.13.1"
 
-    // TODO: 1/13/21 之后需要改为动态获取
-    fun versionCode() = 1
-
-    fun versionName() = "1.0"
+    /* instrumentationTest */
+    const val instrumentation_junit = "1.1.1"
+    const val espresso_core = "3.2.0"
 
 }

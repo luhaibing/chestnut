@@ -45,6 +45,8 @@ fix {
 // gradle 是一种 DSL 语言 运行的本质应该是 先解析每个导入的部分 然后最后合并
 // apply from: "script/test1.gradle"
 
-//project(":mine").projectDir = file("transaction/mine")
-//project(":social").projectDir = file("transaction/social")
+// 方便调试,尽量少的生命模块,减少 gradle 构建时间
+//include ":annotate", ":compiler", ":mine"
 //project(":annotate").projectDir = file("feature/annotate")
+//project(":compiler").projectDir = file("feature/compiler")
+//project(":mine").projectDir = file("transaction/mine")

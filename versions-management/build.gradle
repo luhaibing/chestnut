@@ -29,6 +29,7 @@ gradlePlugin {
     }
 }
 
+/*
 
 // 方便调试开发,直接将 magician 模块的代码路径引入本模块
 apply from: "../magician/build.gradle"
@@ -59,3 +60,5 @@ gradlePlugin {
 
     }
 }
+
+*/

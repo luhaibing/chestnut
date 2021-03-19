@@ -31,6 +31,31 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    // The default value for each feature is shown below. You can change the value to
+    // override the default behavior.
+    buildFeatures {
+        /*
+        // Determines whether to generate a BuildConfig class.
+        buildConfig = true
+        // Determines whether to support View Binding.
+        // Note that the viewBinding.enabled property is now deprecated.
+        viewBinding = false
+        // Determines whether to support Data Binding.
+        // Note that the dataBinding.enabled property is now deprecated.
+        dataBinding = false
+        // Determines whether to generate binder classes for your AIDL files.
+        aidl = true
+        // Determines whether to support RenderScript.
+        renderScript = true
+        // Determines whether to support injecting custom variables into the module’s R class.
+        resValues = true
+        // Determines whether to support shader AOT compilation.
+        shaders = true
+        */
+        viewBinding = true
+    }
+
 }
 
 
@@ -41,6 +66,7 @@ android {
 dependencies {
 
     implementation fileTree(dir: "libs", includes: ["*.jar"])
+
     implementation Google.appcompat
     implementation Google.core_ktx
     implementation Google.material
@@ -77,13 +103,17 @@ dependencies {
 }
 
 replaceDependency {
-//    interceptor(new DependencyInterceptor() {
-//        @Override
-//        Dependency intercept(@NotNull Interceptor.Chain<DependencyEntry, Dependency> chain) {
-//            println "----------- 自定义拦截器 -----------"
-//            return chain.proceed(chain.input())
-//        }
-//    })
+
+    /*
+    interceptor(new DependencyInterceptor() {
+        @Override
+        Dependency intercept(@NotNull Interceptor.Chain<DependencyEntry, Dependency> chain) {
+            println "----------- 自定义拦截器 -----------"
+            return chain.proceed(chain.input())
+        }
+    })
+    */
+
     interceptor {
         println "----------- 自定义拦截器 -----------"
         it.proceed(it.input())

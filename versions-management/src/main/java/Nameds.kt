@@ -12,30 +12,30 @@ import org.gradle.api.Project
 )
 enum class Nameds(val value: String, val group: Int) {
 
-    app(":app", Nameds.CONTAINER),
+    app("app", Nameds.CONTAINER),
 
     // 基础
-    sdk(":sdk", Nameds.FOUNDATION),
-    resource(":resource", Nameds.FOUNDATION),
+    sdk("sdk", Nameds.FOUNDATION),
+    resource("resource", Nameds.FOUNDATION),
 
     // 功能呢
-    annotate(":annotate", Nameds.FEATURE),
-    core(":core", Nameds.FEATURE),
-    compiler(":compiler", Nameds.FEATURE),
-    aspect(":aspect", Nameds.FEATURE),
-    dev(":dev-support", Nameds.FEATURE),
+    annotate("annotate", Nameds.FEATURE),
+    core("core", Nameds.FEATURE),
+    compiler("compiler", Nameds.FEATURE),
+    aspect("aspect", Nameds.FEATURE),
+    dev("dev-support", Nameds.FEATURE),
 
     // 业务
-    mine(":mine", Nameds.TRANSACTION),
-    social(":social", Nameds.TRANSACTION),
+    mine("mine", Nameds.TRANSACTION),
+    social("social", Nameds.TRANSACTION),
 
     // 插件
-    magician(":magician", Nameds.PLUGIN),
+    magician("magician", Nameds.PLUGIN),
 
     ;
 
     fun get(target: Project): Project {
-        return target.project(value)
+        return target.project(PREFIX + value)
     }
 
     companion object {

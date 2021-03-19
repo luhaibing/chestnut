@@ -55,8 +55,8 @@ subprojects {
         // maven { url uri(new File(rootDir, "dependencies")) }
     }
     if (Nameds.isNotPlugins(project)) {
-        apply plugin: "publish-dependency"
-        apply plugin: "replace-dependency"
+        apply plugin: "publish.dependency"
+        apply plugin: "replace.dependency"
     }
 }
 
